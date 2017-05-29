@@ -80,7 +80,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Users with posts
+                    Users (with posts)
                 </div>
 
                 <ul>
@@ -100,7 +100,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Users with posts where tag Foo
+                    Users (with posts tagged Foo)
                 </div>
 
                 <ul>
@@ -120,7 +120,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Users where has posts with tag Foo with posts
+                    Users (where has posts tagged Foo) (with posts)
                 </div>
 
                 <ul>
@@ -140,7 +140,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Users with posts where tag Foo with posts where tag Foo
+                    Users (where has posts tagged Foo) (with posts tagged Foo)
                 </div>
 
                 <ul>

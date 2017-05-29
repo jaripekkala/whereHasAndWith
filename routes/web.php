@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+$whereTagIsFoo = function ($query) {
+    $query->where('tag', 'Foo');
+};
+
+Route::get('/', function () use ($whereTagIsFoo) {
+    // Users with posts
+    $all = User::with('posts')->get();
+
+    // Users with posts where tag Foo
+    $with = User::with(['posts' => $whereTagIsFoo])->get();
+    
+    // Users where has posts with tag Foo with posts
+    $whereHas = User::whereHas('posts', $whereTagIsFoo)->with('posts')->get();
+
+    // Users with posts where tag Foo with posts where tag Foo
+    $whereHasAndWith = User::whereHas('posts', $whereTagIsFoo)
+        ->with(['posts' => $whereTagIsFoo])->get();
+
+    return view('welcome')->with(
+        compact('all', 'with', 'whereHas', 'whereHasAndWith')
+    );
 });

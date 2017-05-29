@@ -23,10 +23,10 @@
 
             .full-height {
                 height: 100vh;
+                padding: 5em;
             }
 
             .flex-center {
-                align-items: center;
                 display: flex;
                 justify-content: center;
             }
@@ -43,10 +43,22 @@
 
             .content {
                 text-align: center;
+                margin: 0 2em;
+            }
+
+            ul {
+                text-align: left;
+                padding-bottom: 1em;
+            }
+
+            li {
+                padding-bottom: .5em;
             }
 
             .title {
-                font-size: 84px;
+                font-size: 28px;
+                max-width: 20vw;
+                height: 120px;
             }
 
             .links > a {
@@ -66,29 +78,84 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
+            <div class="content">
+                <div class="title m-b-md">
+                    Users with posts
                 </div>
-            @endif
+
+                <ul>
+                    @foreach ($all as $user)
+                        <li>
+                            {{ $user->name }}
+                        </li>
+
+                        <ul>
+                            @foreach ($user->posts as $post) 
+                                <li>{{ $post->title }} (tag: {{ $post->tag }})</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </ul>
+            </div>
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Users with posts where tag Foo
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <ul>
+                    @foreach ($with as $user)
+                        <li>
+                            {{ $user->name }}
+                        </li>
+
+                        <ul>
+                            @foreach ($user->posts as $post) 
+                                <li>{{ $post->title }} (tag: {{ $post->tag }})</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="content">
+                <div class="title m-b-md">
+                    Users where has posts with tag Foo with posts
                 </div>
+
+                <ul>
+                    @foreach ($whereHas as $user)
+                        <li>
+                            {{ $user->name }}
+                        </li>
+
+                        <ul>
+                            @foreach ($user->posts as $post) 
+                                <li>{{ $post->title }} (tag: {{ $post->tag }})</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="content">
+                <div class="title m-b-md">
+                    Users with posts where tag Foo with posts where tag Foo
+                </div>
+
+                <ul>
+                    @foreach ($whereHasAndWith as $user)
+                        <li>
+                            {{ $user->name }}
+                        </li>
+
+                        <ul>
+                            @foreach ($user->posts as $post) 
+                                <li>{{ $post->title }} (tag: {{ $post->tag }})</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </body>
